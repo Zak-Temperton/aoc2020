@@ -22,6 +22,7 @@ fn part1() {
                 for &i in preamble.iter() {
                     if preamble.contains(&(num - i)) {
                         contains = true;
+                        break;
                     }
                 }
                 if !contains {
@@ -51,6 +52,7 @@ fn part2() {
                 for &i in preamble.iter() {
                     if preamble.contains(&(num - i)) {
                         contains = true;
+                        break;
                     }
                 }
                 if !contains {
