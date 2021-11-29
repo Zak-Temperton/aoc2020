@@ -3,7 +3,6 @@ use std::{
     fs::File,
     io::{BufRead, BufReader},
     panic,
-    sync::mpsc::channel,
 };
 
 fn main() {
