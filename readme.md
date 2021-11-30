@@ -24,3 +24,4 @@ e.g.
 | 11 | [Seating System](https://adventofcode.com/2020/day/11)           | [day11/src/main.rs](day11/src/main.rs) |
 | 12 | [Rain Risk](https://adventofcode.com/2020/day/12)                | [day12/src/main.rs](day12/src/main.rs) |
 | 13 | [Shuttle Search](https://adventofcode.com/2020/day/13)           | [day13/src/main.rs](day13/src/main.rs) |
+| 14 | [Docking Data](https://adventofcode.com/2020/day/14)             | [day14/src/main.rs](day14/src/main.rs) |
