@@ -37,6 +37,7 @@ fn part1() {
 }
 
 //my brute force method
+#[allow(dead_code)]
 fn part2() {
     let file = File::open("day13/res/example.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
@@ -89,9 +90,9 @@ fn part2b() {
     let mut busses = Vec::new();
     for line in reader.lines().skip(1) {
         if let Ok(line) = line {
-            for s in line.split(',').enumerate() {
-                if s.1 != "x" {
-                    busses.push(s.1.parse::<usize>().unwrap());
+            for s in line.split(',') {
+                if s != "x" {
+                    busses.push(s.parse::<usize>().unwrap());
                 } else {
                     busses.push(0);
                 }
@@ -105,19 +106,13 @@ fn part2b() {
     while offset < busses.len() {
         if busses[offset] == 0 {
             offset += 1;
-
-            continue;
+        } else {
+            wait += increment;
+            if (wait + offset) % busses[offset] == 0 {
+                increment *= busses[offset];
+                offset += 1;
+            }
         }
-
-        wait += increment;
-
-        if (wait + offset) % busses[offset] != 0 {
-            continue;
-        }
-
-        increment *= busses[offset];
-
-        offset += 1;
     }
 
     println!("{}", wait);
