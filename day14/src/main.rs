@@ -15,7 +15,7 @@ fn part1() {
     let file = File::open("day14/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let r_mask = Regex::new(r"mask = (?:([X01]+))").unwrap();
-    let r_mem = Regex::new(r"mem\[(:?([\d]+))\] = (?:([\d]+))").unwrap();
+    let r_mem = Regex::new(r"mem\[(?:([\d]+))\] = (?:([\d]+))").unwrap();
     let mut mask = Vec::new();
     let mut map = HashMap::new();
     for line in reader.lines() {
@@ -31,8 +31,8 @@ fn part1() {
                     .to_vec();
             } else {
                 let captures = r_mem.captures(line.as_str()).unwrap();
-                let address: u64 = captures.get(2).unwrap().as_str().parse().unwrap();
-                let mem: u64 = captures.get(3).unwrap().as_str().parse().unwrap();
+                let address: u64 = captures.get(1).unwrap().as_str().parse().unwrap();
+                let mem: u64 = captures.get(2).unwrap().as_str().parse().unwrap();
                 let mut ans: u64 = 0;
                 for i in (0..mask.len()).rev() {
                     ans <<= 1;
@@ -53,7 +53,7 @@ fn part2() {
     let file = File::open("day14/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let r_mask = Regex::new(r"mask = (?:([X01]+))").unwrap();
-    let r_mem = Regex::new(r"mem\[(:?([\d]+))\] = (?:([\d]+))").unwrap();
+    let r_mem = Regex::new(r"mem\[(?:([\d]+))\] = (?:([\d]+))").unwrap();
     let mut mask = 0;
     let mut map = HashMap::new(); // memory
     let mut xi = Vec::new(); //indeces of 'X's
@@ -87,8 +87,8 @@ fn part2() {
             } else {
                 let captures = r_mem.captures(line.as_str()).unwrap();
                 let mut address_raw: Vec<u64> =
-                    vec![captures.get(2).unwrap().as_str().parse::<u64>().unwrap() | mask];
-                let mem: u64 = captures.get(3).unwrap().as_str().parse().unwrap();
+                    vec![captures.get(1).unwrap().as_str().parse::<u64>().unwrap() | mask];
+                let mem: u64 = captures.get(2).unwrap().as_str().parse().unwrap();
 
                 for &x in xi.iter() {
                     let mut new_addresses = Vec::new();
