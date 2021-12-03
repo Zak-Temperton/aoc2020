@@ -12,10 +12,8 @@ fn part1() {
     let file = File::open("day10/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut adapters = Vec::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            adapters.push(line.parse().unwrap());
-        }
+    for line in reader.lines().flatten() {
+        adapters.push(line.parse().unwrap());
     }
     adapters.sort_unstable();
     let mut last = 0;
@@ -36,11 +34,10 @@ fn part2() {
     let file = File::open("day10/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut adapters: Vec<usize> = Vec::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            adapters.push(line.parse().unwrap());
-        }
+    for line in reader.lines().flatten() {
+        adapters.push(line.parse().unwrap());
     }
+
     adapters.sort_unstable_by(|&a, &b| b.partial_cmp(&a).unwrap()); //sort in reverse
     adapters.push(0); //add starting point
     let mut paths: Vec<usize> = vec![0; adapters[0] + 4];

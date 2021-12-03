@@ -18,17 +18,15 @@ fn part1() {
     let r_bags = Regex::new(r" (bags|bag)").unwrap();
     let r_split = Regex::new(r", [\d]+ ").unwrap();
     let mut bags = HashMap::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            if let Some(captures) = r.captures(line.as_str()) {
-                let parent = captures.get(1).unwrap().as_str().to_string();
-                let tmp = &*r_bags.replace_all(&captures.get(2).unwrap().as_str(), "");
-                let children = r_split.split(tmp).collect::<Vec<_>>();
-                for child in children {
-                    bags.entry(child.to_string())
-                        .or_insert(Vec::new())
-                        .push(parent.clone());
-                }
+    for line in reader.lines().flatten() {
+        if let Some(captures) = r.captures(line.as_str()) {
+            let parent = captures.get(1).unwrap().as_str().to_string();
+            let tmp = &*r_bags.replace_all(captures.get(2).unwrap().as_str(), "");
+            let children = r_split.split(tmp).collect::<Vec<_>>();
+            for child in children {
+                bags.entry(child.to_string())
+                    .or_insert_with(Vec::new)
+                    .push(parent.clone());
             }
         }
     }
@@ -61,19 +59,17 @@ fn part2() {
     let r_split = Regex::new(r", ").unwrap();
     let r_child = Regex::new(r"(?:(\d+)) (?:([\w ]+))").unwrap();
     let mut bags = HashMap::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            if let Some(captures) = r.captures(line.as_str()) {
-                let parent = captures.get(1).unwrap().as_str().to_string();
-                let tmp = &*r_bags.replace_all(&captures.get(2).unwrap().as_str(), "");
-                let children = r_split.split(tmp).collect::<Vec<_>>();
-                for &child in children.iter() {
-                    if let Some(child) = r_child.captures(child) {
-                        bags.entry(parent.clone()).or_insert(Vec::new()).push((
-                            child.get(1).unwrap().as_str().parse::<u32>().unwrap(),
-                            child.get(2).unwrap().as_str().to_string(),
-                        ));
-                    }
+    for line in reader.lines().flatten() {
+        if let Some(captures) = r.captures(line.as_str()) {
+            let parent = captures.get(1).unwrap().as_str().to_string();
+            let tmp = &*r_bags.replace_all(captures.get(2).unwrap().as_str(), "");
+            let children = r_split.split(tmp).collect::<Vec<_>>();
+            for &child in children.iter() {
+                if let Some(child) = r_child.captures(child) {
+                    bags.entry(parent.clone()).or_insert_with(Vec::new).push((
+                        child.get(1).unwrap().as_str().parse::<u32>().unwrap(),
+                        child.get(2).unwrap().as_str().to_string(),
+                    ));
                 }
             }
         }
@@ -82,7 +78,7 @@ fn part2() {
     println!("{}", count);
 }
 
-fn get_bags_contained(bags: &HashMap<String, Vec<(u32, String)>>, bag: &String) -> u32 {
+fn get_bags_contained(bags: &HashMap<String, Vec<(u32, String)>>, bag: &str) -> u32 {
     let mut count = 1; //count itself
     if let Some(children) = bags.get(bag) {
         for child in children.iter() {

@@ -14,20 +14,18 @@ fn part1() {
     let mut min_wait = 0;
     let mut min_depart = 0;
     let mut min_bus = 0;
-    for (i, line) in reader.lines().enumerate() {
-        if let Ok(line) = line {
-            if i == 0 {
-                min_wait = line.parse::<i32>().unwrap();
-                min_depart = min_wait;
-            } else {
-                for s in line.split(',') {
-                    if s != "x" {
-                        let bus = s.parse::<i32>().unwrap();
-                        let wait = bus - min_depart % bus;
-                        if wait < min_wait {
-                            min_wait = wait;
-                            min_bus = bus;
-                        }
+    for (i, line) in reader.lines().flatten().enumerate() {
+        if i == 0 {
+            min_wait = line.parse::<i32>().unwrap();
+            min_depart = min_wait;
+        } else {
+            for s in line.split(',') {
+                if s != "x" {
+                    let bus = s.parse::<i32>().unwrap();
+                    let wait = bus - min_depart % bus;
+                    if wait < min_wait {
+                        min_wait = wait;
+                        min_bus = bus;
                     }
                 }
             }
@@ -42,21 +40,15 @@ fn part2() {
     let file = File::open("day13/res/example.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut busses = Vec::new();
-    for line in reader.lines().skip(1) {
-        if let Ok(line) = line {
-            for s in line.split(',').enumerate() {
-                if s.1 != "x" {
-                    busses.push((s.0 as i128, s.1.parse::<i128>().unwrap()));
-                }
+    for line in reader.lines().flatten().skip(1) {
+        for s in line.split(',').enumerate() {
+            if s.1 != "x" {
+                busses.push((s.0 as i128, s.1.parse::<i128>().unwrap()));
             }
         }
     }
 
-    let max = busses
-        .iter()
-        .max_by(|&a, &b| a.1.cmp(&b.1))
-        .unwrap()
-        .clone();
+    let max = *busses.iter().max_by(|&a, &b| a.1.cmp(&b.1)).unwrap();
 
     for bus in busses.iter_mut() {
         bus.0 -= max.0;
@@ -88,14 +80,12 @@ fn part2b() {
     let file = File::open("day13/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut busses = Vec::new();
-    for line in reader.lines().skip(1) {
-        if let Ok(line) = line {
-            for s in line.split(',') {
-                if s != "x" {
-                    busses.push(s.parse::<usize>().unwrap());
-                } else {
-                    busses.push(0);
-                }
+    for line in reader.lines().flatten().skip(1) {
+        for s in line.split(',') {
+            if s != "x" {
+                busses.push(s.parse::<usize>().unwrap());
+            } else {
+                busses.push(0);
             }
         }
     }

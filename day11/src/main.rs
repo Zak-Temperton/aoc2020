@@ -31,18 +31,16 @@ fn part1() {
     let file = File::open("day11/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut layout = Vec::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            let mut row = Vec::with_capacity(line.len());
-            for c in line.chars() {
-                row.push(match c {
-                    '.' => Seat::Floor,
-                    'L' => Seat::Empty,
-                    _ => panic!(),
-                })
-            }
-            layout.push(row);
+    for line in reader.lines().flatten() {
+        let mut row = Vec::with_capacity(line.len());
+        for c in line.chars() {
+            row.push(match c {
+                '.' => Seat::Floor,
+                'L' => Seat::Empty,
+                _ => panic!(),
+            })
         }
+        layout.push(row);
     }
 
     let height = layout.len();
@@ -63,10 +61,9 @@ fn part1() {
                                     && !(y == height - 1 && i == 2)
                                     && !(x == 0 && j == 0)
                                     && !(x == width - 1 && j == 2)
+                                    && layout[y + i - 1][x + j - 1] == Seat::Occupied
                                 {
-                                    if layout[y + i - 1][x + j - 1] == Seat::Occupied {
-                                        count += 1;
-                                    }
+                                    count += 1;
                                 }
                             }
                         }
@@ -99,18 +96,16 @@ fn part2() {
     let file = File::open("day11/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut layout = Vec::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            let mut row = Vec::with_capacity(line.len());
-            for c in line.chars() {
-                row.push(match c {
-                    '.' => Seat::Floor,
-                    'L' => Seat::Empty,
-                    _ => panic!(),
-                })
-            }
-            layout.push(row);
+    for line in reader.lines().flatten() {
+        let mut row = Vec::with_capacity(line.len());
+        for c in line.chars() {
+            row.push(match c {
+                '.' => Seat::Floor,
+                'L' => Seat::Empty,
+                _ => panic!(),
+            })
         }
+        layout.push(row);
     }
 
     let height = layout.len() - 1;
@@ -172,7 +167,7 @@ fn find<Y, X>(
     fx: X,
     y: usize,
     x: usize,
-    layout: &Vec<Vec<Seat>>,
+    layout: &[Vec<Seat>],
 ) -> usize
 where
     Y: Fn(usize, usize) -> usize,
@@ -181,11 +176,9 @@ where
     for i in range {
         match layout[fy(y, i)][fx(x, i)] {
             Seat::Empty => return 0,
-            Seat::Occupied => {
-                return 1;
-            }
+            Seat::Occupied => return 1,
             Seat::Floor => {}
         }
     }
-    return 0;
+    0
 }

@@ -11,11 +11,10 @@ fn part1() {
     let mut sum = 0;
     let file = File::open("day18/res/input.txt").unwrap();
     let reader = BufReader::new(file);
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            sum += evaluate(line.as_bytes()).0;
-        }
+    for line in reader.lines().flatten() {
+        sum += evaluate(line.as_bytes()).0;
     }
+
     println!("{}", sum);
 }
 
@@ -41,7 +40,7 @@ pub fn evaluate(line: &[u8]) -> (u64, usize) {
             b')' => return (out, i + 1),
             b'*' => instruction = Instruction::Mull,
             b'+' => instruction = Instruction::Add,
-            b if b >= b'0' && b <= b'9' => match instruction {
+            b if (b'0'..=b'9').contains(&b) => match instruction {
                 Instruction::Add => out += (b - b'0') as u64,
                 Instruction::Mull => out *= (b - b'0') as u64,
             },

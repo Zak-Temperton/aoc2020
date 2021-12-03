@@ -51,18 +51,16 @@ fn part1() {
     let file = File::open("day12/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut ship = Ship1::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            match &line[..1] {
-                "F" => ship.move_facing(line[1..].parse().unwrap()),
-                "L" => ship.rotate(360 - line[1..].parse::<i32>().unwrap()),
-                "R" => ship.rotate(line[1..].parse().unwrap()),
-                "E" => ship.move_dir(0, line[1..].parse().unwrap()),
-                "S" => ship.move_dir(1, line[1..].parse().unwrap()),
-                "W" => ship.move_dir(2, line[1..].parse().unwrap()),
-                "N" => ship.move_dir(3, line[1..].parse().unwrap()),
-                _ => panic!(),
-            }
+    for line in reader.lines().flatten() {
+        match &line[..1] {
+            "F" => ship.move_facing(line[1..].parse().unwrap()),
+            "L" => ship.rotate(360 - line[1..].parse::<i32>().unwrap()),
+            "R" => ship.rotate(line[1..].parse().unwrap()),
+            "E" => ship.move_dir(0, line[1..].parse().unwrap()),
+            "S" => ship.move_dir(1, line[1..].parse().unwrap()),
+            "W" => ship.move_dir(2, line[1..].parse().unwrap()),
+            "N" => ship.move_dir(3, line[1..].parse().unwrap()),
+            _ => panic!(),
         }
     }
     println!("{}", ship.pos.0.abs() + ship.pos.1.abs());
@@ -119,18 +117,16 @@ fn part2() {
     let file = File::open("day12/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut ship = Ship2::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            match &line[..1] {
-                "F" => ship.forward(line[1..].parse().unwrap()),
-                "L" => ship.rotate_waypoint(360 - line[1..].parse::<i32>().unwrap()),
-                "R" => ship.rotate_waypoint(line[1..].parse().unwrap()),
-                "E" => ship.move_waypoint(0, line[1..].parse().unwrap()),
-                "S" => ship.move_waypoint(1, line[1..].parse().unwrap()),
-                "W" => ship.move_waypoint(2, line[1..].parse().unwrap()),
-                "N" => ship.move_waypoint(3, line[1..].parse().unwrap()),
-                _ => panic!(),
-            }
+    for line in reader.lines().flatten() {
+        match &line[..1] {
+            "F" => ship.forward(line[1..].parse().unwrap()),
+            "L" => ship.rotate_waypoint(360 - line[1..].parse::<i32>().unwrap()),
+            "R" => ship.rotate_waypoint(line[1..].parse().unwrap()),
+            "E" => ship.move_waypoint(0, line[1..].parse().unwrap()),
+            "S" => ship.move_waypoint(1, line[1..].parse().unwrap()),
+            "W" => ship.move_waypoint(2, line[1..].parse().unwrap()),
+            "N" => ship.move_waypoint(3, line[1..].parse().unwrap()),
+            _ => panic!(),
         }
     }
     println!("{}", ship.pos.0.abs() + ship.pos.1.abs());

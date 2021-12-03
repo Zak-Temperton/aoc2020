@@ -12,10 +12,8 @@ fn part1() {
     let file = File::open("day17/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut lines = Vec::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            lines.push(line.as_bytes().to_vec());
-        }
+    for line in reader.lines().flatten() {
+        lines.push(line.as_bytes().to_vec());
     }
     let mut world = vec![vec![vec![false; 1 + 12]; lines.len() + 12]; lines.len() + 12];
     for (y, line) in lines.iter().enumerate() {
@@ -80,11 +78,10 @@ fn part2() {
     let file = File::open("day17/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut lines = Vec::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            lines.push(line.as_bytes().to_vec());
-        }
+    for line in reader.lines().flatten() {
+        lines.push(line.as_bytes().to_vec());
     }
+
     let mut world =
         vec![vec![vec![vec![false; 1 + 12]; 1 + 12]; lines.len() + 12]; lines.len() + 12];
     for (y, line) in lines.iter().enumerate() {

@@ -14,26 +14,24 @@ fn part1() {
     let file = File::open("day09/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut preamble = VecDeque::with_capacity(25);
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            let num = line.parse::<u64>().unwrap();
-            if preamble.len() == 25 {
-                let mut contains = false;
-                for &i in preamble.iter() {
-                    if preamble.contains(&(num - i)) {
-                        contains = true;
-                        break;
-                    }
+    for line in reader.lines().flatten() {
+        let num = line.parse::<u64>().unwrap();
+        if preamble.len() == 25 {
+            let mut contains = false;
+            for &i in preamble.iter() {
+                if preamble.contains(&(num - i)) {
+                    contains = true;
+                    break;
                 }
-                if !contains {
-                    println!("{}", &num);
-                    return;
-                }
-                preamble.pop_front();
-                preamble.push_back(num);
-            } else {
-                preamble.push_back(num);
             }
+            if !contains {
+                println!("{}", &num);
+                return;
+            }
+            preamble.pop_front();
+            preamble.push_back(num);
+        } else {
+            preamble.push_back(num);
         }
     }
 }
@@ -44,28 +42,26 @@ fn part2() {
     let mut preamble = VecDeque::with_capacity(25);
     let mut numbers = Vec::new();
     let mut invalid_num = 0;
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            let num = line.parse::<u64>().unwrap();
-            if preamble.len() == 25 {
-                let mut contains = false;
-                for &i in preamble.iter() {
-                    if preamble.contains(&(num - i)) {
-                        contains = true;
-                        break;
-                    }
-                }
-                if !contains {
-                    invalid_num = num;
+    for line in reader.lines().flatten() {
+        let num = line.parse::<u64>().unwrap();
+        if preamble.len() == 25 {
+            let mut contains = false;
+            for &i in preamble.iter() {
+                if preamble.contains(&(num - i)) {
+                    contains = true;
                     break;
                 }
-                preamble.pop_front();
-                preamble.push_back(num);
-                numbers.push(num);
-            } else {
-                preamble.push_back(num);
-                numbers.push(num);
             }
+            if !contains {
+                invalid_num = num;
+                break;
+            }
+            preamble.pop_front();
+            preamble.push_back(num);
+            numbers.push(num);
+        } else {
+            preamble.push_back(num);
+            numbers.push(num);
         }
     }
     let mut begin = numbers.len() - 1;

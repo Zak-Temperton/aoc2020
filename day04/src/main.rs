@@ -18,17 +18,15 @@ where
     let reader = BufReader::new(file);
     let mut count = 0;
     let mut passport = String::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            if line != "" {
-                passport.push(' ');
-                passport.push_str(line.as_str());
-            } else {
-                if valid(&passport) {
-                    count += 1;
-                }
-                passport.clear();
+    for line in reader.lines().flatten() {
+        if !line.is_empty() {
+            passport.push(' ');
+            passport.push_str(line.as_str());
+        } else {
+            if valid(&passport) {
+                count += 1;
             }
+            passport.clear();
         }
     }
     if valid(&passport) {

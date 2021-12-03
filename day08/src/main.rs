@@ -21,17 +21,15 @@ fn part1() {
     let file = File::open("day08/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut instructions = Vec::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            let num = line[4..].parse().unwrap();
-            let opp = &line[..3];
-            instructions.push(match opp {
-                "nop" => Instruction::Nop(num),
-                "acc" => Instruction::Acc(num),
-                "jmp" => Instruction::Jmp(num),
-                _ => panic!(),
-            });
-        }
+    for line in reader.lines().flatten() {
+        let num = line[4..].parse().unwrap();
+        let opp = &line[..3];
+        instructions.push(match opp {
+            "nop" => Instruction::Nop(num),
+            "acc" => Instruction::Acc(num),
+            "jmp" => Instruction::Jmp(num),
+            _ => panic!(),
+        });
     }
 
     println!("{}", {
@@ -59,17 +57,15 @@ fn part2() {
     let file = File::open("day08/res/input.txt").expect("Failed to load input.txt");
     let reader = BufReader::new(file);
     let mut instructions = Vec::new();
-    for line in reader.lines() {
-        if let Ok(line) = line {
-            let num = line[4..].parse().unwrap();
-            let opp = &line[..3];
-            instructions.push(match opp {
-                "nop" => Instruction::Nop(num),
-                "acc" => Instruction::Acc(num),
-                "jmp" => Instruction::Jmp(num),
-                _ => panic!(),
-            });
-        }
+    for line in reader.lines().flatten() {
+        let num = line[4..].parse().unwrap();
+        let opp = &line[..3];
+        instructions.push(match opp {
+            "nop" => Instruction::Nop(num),
+            "acc" => Instruction::Acc(num),
+            "jmp" => Instruction::Jmp(num),
+            _ => panic!(),
+        });
     }
     println!("{}", {
         let mut changed = 0;
@@ -97,7 +93,7 @@ fn part2() {
         }
     });
 }
-fn test(instructions: &Vec<Instruction>) -> Option<i32> {
+fn test(instructions: &[Instruction]) -> Option<i32> {
     let mut visited = HashSet::new();
     let mut acc = 0;
     let mut i = 0;
