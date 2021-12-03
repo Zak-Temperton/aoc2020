@@ -25,4 +25,8 @@ e.g.
 | 12 | [Rain Risk](https://adventofcode.com/2020/day/12)                | [day12/src/main.rs](day12/src/main.rs) |
 | 13 | [Shuttle Search](https://adventofcode.com/2020/day/13)           | [day13/src/main.rs](day13/src/main.rs) |
 | 14 | [Docking Data](https://adventofcode.com/2020/day/14)             | [day14/src/main.rs](day14/src/main.rs) |
-| 14 | [Rambunctious Recitation](https://adventofcode.com/2020/day/15)  | [day14/src/main.rs](day15/src/main.rs) |
+| 15 | [Rambunctious Recitation](https://adventofcode.com/2020/day/15)  | [day15/src/main.rs](day15/src/main.rs) |
+| 16 | [Ticket Translation](https://adventofcode.com/2020/day/16)       | [day16/src/main.rs](day16/src/main.rs) |
+| 17 | [Conway Cubes](https://adventofcode.com/2020/day/17)             | [day17/src/main.rs](day17/src/main.rs) |
+| 18 | [Operation Order](https://adventofcode.com/2020/day/18)          | [day18/src/main.rs](day18/src/main.rs) |
+| 19 | [Monster Messages](https://adventofcode.com/2020/day/19)         | [day19/src/main.rs](day19/src/main.rs) |
