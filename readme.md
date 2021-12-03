@@ -30,3 +30,4 @@ e.g.
 | 17 | [Conway Cubes](https://adventofcode.com/2020/day/17)             | [day17/src/main.rs](day17/src/main.rs) |
 | 18 | [Operation Order](https://adventofcode.com/2020/day/18)          | [day18/src/main.rs](day18/src/main.rs) |
 | 19 | [Monster Messages](https://adventofcode.com/2020/day/19)         | [day19/src/main.rs](day19/src/main.rs) |
+| 20 | [Jurassic Jigsaw](https://adventofcode.com/2020/day/20)          | [day20/src/main.rs](day20/src/main.rs) |
