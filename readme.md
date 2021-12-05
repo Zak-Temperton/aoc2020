@@ -31,4 +31,5 @@ e.g.
 | 18 | [Operation Order](https://adventofcode.com/2020/day/18)          | [day18/src/main.rs](day18/src/main.rs) |
 | 19 | [Monster Messages](https://adventofcode.com/2020/day/19)         | [day19/src/main.rs](day19/src/main.rs) |
 | 20 | [Jurassic Jigsaw](https://adventofcode.com/2020/day/20)          | [day20/src/main.rs](day20/src/main.rs) |
-| 22 | [Crab Combat](https://adventofcode.com/2020/day/22)          | [day22/src/main.rs](day22/src/main.rs) |
+| 21 | [Allergen Assessment](https://adventofcode.com/2020/day/21)      | [day21/src/main.rs](day21/src/main.rs) |
+| 22 | [Crab Combat](https://adventofcode.com/2020/day/22)              | [day22/src/main.rs](day22/src/main.rs) |
