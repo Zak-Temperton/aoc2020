@@ -22,7 +22,7 @@ fn part1() {
         let allergens = split
             .next()
             .unwrap()
-            .strip_suffix(")")
+            .strip_suffix(')')
             .unwrap()
             .split(", ")
             .map(|s| s.to_string());
@@ -33,7 +33,7 @@ fn part1() {
             }
             let set = allergens_map
                 .entry(allergen.to_string())
-                .or_insert(new_set.clone());
+                .or_insert_with(|| new_set.clone());
             for ingredient in set.clone().iter() {
                 if !new_set.contains(ingredient) {
                     set.remove(ingredient);
@@ -62,7 +62,7 @@ fn part2() {
         let allergens = split
             .next()
             .unwrap()
-            .strip_suffix(")")
+            .strip_suffix(')')
             .unwrap()
             .split(", ")
             .map(|s| s.to_string());
@@ -73,7 +73,7 @@ fn part2() {
             }
             let set = allergens_map
                 .entry(allergen.to_string())
-                .or_insert(new_set.clone());
+                .or_insert_with(|| new_set.clone());
             for ingredient in set.clone().iter() {
                 if !new_set.contains(ingredient) {
                     set.remove(ingredient);
@@ -100,8 +100,8 @@ fn part2() {
 
     identified.sort_unstable_by(|a, b| a.0.cmp(&b.0));
     let len = identified.len() - 2;
-    for i in 0..=len {
-        print!("{},", identified[i].1);
+    for (_, i) in identified[0..=len].iter() {
+        print!("{},", i);
     }
     print!("{}", identified[len + 1].1);
 }
